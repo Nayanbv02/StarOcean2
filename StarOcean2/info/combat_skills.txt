@@ -1,0 +1,15 @@
+#ID	Name
+0	Guardbreak
+2	Backstab
+5	Power Burst
+8	Qigong
+7	Body Control
+9	Sidestep
+11	Godspeed
+6	Hasten Speech
+14	Trance
+15	Concentration
+17	Interrupt
+4	Feint
+23	Breaker
+24	Accumulation Aid

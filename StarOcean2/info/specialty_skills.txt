@@ -1,0 +1,33 @@
+﻿#ID	Name
+0	Sketching
+1	Music Knowledge
+2	Performance
+3	Item Knowledge
+4	Mineralogy
+5	Herbology
+6	Eye for Detail
+7	Aesthetics
+8	Penmanship
+9	Effort
+10	Determination
+11	Resilience
+12	Danger Radar
+13	Biology
+14	Mental Science
+15	Knife
+16	Recipe
+17	Keen Eye
+18	Whistling
+19	Animal Training
+20	Smithing
+21	Technology
+22	Faeriology
+23	ESP
+24	Piety
+25	Purity
+26	Aesthetic Design
+27	Courage
+28	Poker Face
+29	Imitation
+30	Machinery
+31	Operation

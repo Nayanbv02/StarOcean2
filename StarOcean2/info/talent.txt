@@ -1,0 +1,11 @@
+#ID	Name
+1	Originality
+2	Taste
+3	Nimble Fingers
+4	Design Sense
+5	Composition
+6	Rhythm Sense
+7	Acoustic Sense
+8	Love of Animals
+9	Wild Instinct
+10	Blessing of Mana
