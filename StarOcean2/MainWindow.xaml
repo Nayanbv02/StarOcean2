@@ -6,162 +6,215 @@
         xmlns:local="clr-namespace:StarOcean2"
         mc:Ignorable="d"
 		WindowStartupLocation="CenterScreen"
-        Title="STAR OCEAN THE SECOND STORY R Nintendo Switch" Height="550" Width="700">
-	<Window.DataContext>
-		<local:ViewModel/>
-	</Window.DataContext>
-	<DockPanel>
-		<Menu DockPanel.Dock="Top">
-			<MenuItem Header="File">
-				<MenuItem Header="Open" Command="{Binding OpenFileCommand}"/>
-				<MenuItem Header="Save" Command="{Binding SaveFileCommand}"/>
-			</MenuItem>
-		</Menu>
-		<TabControl>
-			<TabItem Header="Basic">
-				<Grid>
-					<Grid.ColumnDefinitions>
-						<ColumnDefinition/>
-						<ColumnDefinition/>
-						<ColumnDefinition Width="5"/>
-						<ColumnDefinition/>
-						<ColumnDefinition/>
-					</Grid.ColumnDefinitions>
-					<Grid.RowDefinitions>
-						<RowDefinition/>
-						<RowDefinition Height="14*"/>
-					</Grid.RowDefinitions>
-					<Label Content="Money"/>
-					<TextBox Grid.Column="1" Text="{Binding Basic.Money, UpdateSourceTrigger=PropertyChanged}"/>
-				</Grid>
-			</TabItem>
-			<TabItem Header="Character">
-				<Grid>
-					<Grid.ColumnDefinitions>
-						<ColumnDefinition/>
-						<ColumnDefinition/>
-						<ColumnDefinition/>
-					</Grid.ColumnDefinitions>
-					<ListBox Name="ListBoxCharacters" ItemsSource="{Binding Characters}" DisplayMemberPath="Name"/>
-					<Grid Grid.Column="1">
-						<Grid.ColumnDefinitions>
-							<ColumnDefinition/>
-							<ColumnDefinition/>
-						</Grid.ColumnDefinitions>
-						<Grid.RowDefinitions>
-							<RowDefinition/>
-							<RowDefinition/>
-							<RowDefinition/>
-							<RowDefinition/>
-							<RowDefinition/>
-							<RowDefinition/>
-							<RowDefinition/>
-							<RowDefinition/>
-							<RowDefinition/>
-							<RowDefinition/>
-							<RowDefinition/>
-							<RowDefinition/>
-							<RowDefinition/>
-							<RowDefinition/>
-							<RowDefinition/>
-							<RowDefinition/>
-						</Grid.RowDefinitions>
-						<Label Content="Lv"/>
-						<TextBox Grid.Column="1" Text="{Binding ElementName=ListBoxCharacters, Path=SelectedItem.Lv, UpdateSourceTrigger=PropertyChanged}"/>
-						<Label Grid.Row="1" Content="Exp"/>
-						<TextBox Grid.Row="1" Grid.Column="1" Text="{Binding ElementName=ListBoxCharacters, Path=SelectedItem.Exp, UpdateSourceTrigger=PropertyChanged}"/>
-						<Label Grid.Row="2" Content="BP"/>
-						<TextBox Grid.Row="2" Grid.Column="1" Text="{Binding ElementName=ListBoxCharacters, Path=SelectedItem.BP, UpdateSourceTrigger=PropertyChanged}"/>
-						<Label Grid.Row="3" Content="BaseHP"/>
-						<TextBox Grid.Row="3" Grid.Column="1" Text="{Binding ElementName=ListBoxCharacters, Path=SelectedItem.BaseHP, UpdateSourceTrigger=PropertyChanged}"/>
-						<Label Grid.Row="4" Content="HP"/>
-						<TextBox Grid.Row="4" Grid.Column="1" Text="{Binding ElementName=ListBoxCharacters, Path=SelectedItem.HP, UpdateSourceTrigger=PropertyChanged}"/>
-						<Label Grid.Row="5" Content="BaseMP"/>
-						<TextBox Grid.Row="5" Grid.Column="1" Text="{Binding ElementName=ListBoxCharacters, Path=SelectedItem.BaseMP, UpdateSourceTrigger=PropertyChanged}"/>
-						<Label Grid.Row="6" Content="MP"/>
-						<TextBox Grid.Row="6" Grid.Column="1" Text="{Binding ElementName=ListBoxCharacters, Path=SelectedItem.MP, UpdateSourceTrigger=PropertyChanged}"/>
-						<Label Grid.Row="7" Content="ATK"/>
-						<TextBox Grid.Row="7" Grid.Column="1" Text="{Binding ElementName=ListBoxCharacters, Path=SelectedItem.ATK, UpdateSourceTrigger=PropertyChanged}"/>
-						<Label Grid.Row="8" Content="DEF"/>
-						<TextBox Grid.Row="8" Grid.Column="1" Text="{Binding ElementName=ListBoxCharacters, Path=SelectedItem.DEF, UpdateSourceTrigger=PropertyChanged}"/>
-						<Label Grid.Row="9" Content="HIT"/>
-						<TextBox Grid.Row="9" Grid.Column="1" Text="{Binding ElementName=ListBoxCharacters, Path=SelectedItem.HIT, UpdateSourceTrigger=PropertyChanged}"/>
-						<Label Grid.Row="10" Content="AVD"/>
-						<TextBox Grid.Row="10" Grid.Column="1" Text="{Binding ElementName=ListBoxCharacters, Path=SelectedItem.AVD, UpdateSourceTrigger=PropertyChanged}"/>
-						<Label Grid.Row="11" Content="INT"/>
-						<TextBox Grid.Row="11" Grid.Column="1" Text="{Binding ElementName=ListBoxCharacters, Path=SelectedItem.INT, UpdateSourceTrigger=PropertyChanged}"/>
-						<Label Grid.Row="12" Content="LUC"/>
-						<TextBox Grid.Row="12" Grid.Column="1" Text="{Binding ElementName=ListBoxCharacters, Path=SelectedItem.LUC, UpdateSourceTrigger=PropertyChanged}"/>
-						<Label Grid.Row="13" Content="STM"/>
-						<TextBox Grid.Row="13" Grid.Column="1" Text="{Binding ElementName=ListBoxCharacters, Path=SelectedItem.STM, UpdateSourceTrigger=PropertyChanged}"/>
-						<Label Grid.Row="14" Content="CRT"/>
-						<TextBox Grid.Row="14" Grid.Column="1" Text="{Binding ElementName=ListBoxCharacters, Path=SelectedItem.CRT, UpdateSourceTrigger=PropertyChanged}"/>
-						<Label Grid.Row="15" Content="GUTS"/>
-						<TextBox Grid.Row="15" Grid.Column="1" Text="{Binding ElementName=ListBoxCharacters, Path=SelectedItem.GUTS, UpdateSourceTrigger=PropertyChanged}"/>
-					</Grid>
-					<TabControl Grid.Column="2">
-						<TabItem Header="Talent">
-							<ListBox ItemsSource="{Binding ElementName=ListBoxCharacters, Path=SelectedItem.Talents}">
-								<ListBox.ItemTemplate>
-									<DataTemplate>
-										<CheckBox Content="{Binding Name}" IsChecked="{Binding Value}"/>
-									</DataTemplate>
-								</ListBox.ItemTemplate>
-							</ListBox>
-						</TabItem>
-						<TabItem Header="Skill">
-							<ListBox ItemsSource="{Binding ElementName=ListBoxCharacters, Path=SelectedItem.Skills}">
-								<ListBox.ItemTemplate>
-									<DataTemplate>
-										<StackPanel Orientation="Horizontal">
-											<Label Content="Lv"/>
-											<TextBox Text="{Binding Value, UpdateSourceTrigger=PropertyChanged}" Width="80"/>
-											<Label Content="{Binding Name}"/>
-										</StackPanel>
-									</DataTemplate>
-								</ListBox.ItemTemplate>
-							</ListBox>
-						</TabItem>
-					</TabControl>
-				</Grid>
-			</TabItem>
-			<TabItem Header="Party">
-				<ListBox ItemsSource="{Binding Party}">
-					<ListBox.ItemTemplate>
-						<DataTemplate>
-							<ComboBox ItemsSource="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=local:MainWindow}, Path=DataContext.Info.Character}"
-									  SelectedIndex="{Binding Value}"
-									  DisplayMemberPath="Name" Width="200"/>
-						</DataTemplate>
-					</ListBox.ItemTemplate>
-				</ListBox>
-			</TabItem>
-			<TabItem Header="Item">
-				<DockPanel>
-					<Button DockPanel.Dock="Bottom" Content="All Clear" Command="{Binding AllItemClearCommand}"/>
-					<Button DockPanel.Dock="Bottom" Content="Choice" Command="{Binding ItemChoiceCommand}"/>
-					<StackPanel DockPanel.Dock="Bottom" Orientation="Horizontal">
-						<Label Content="All Item "/>
-						<TextBox Width="80" Text="{Binding ItemCount, UpdateSourceTrigger=PropertyChanged}"/>
-						<Button Content="Execute" Command="{Binding AllItemCountCommand}"/>
-					</StackPanel>
-					<ListBox ItemsSource="{Binding Items}">
-						<ListBox.Resources>
-							<local:ItemIDConverter x:Key="ItemIDConverter"/>
-						</ListBox.Resources>
-						<ListBox.ItemTemplate>
-							<DataTemplate>
-								<StackPanel Orientation="Horizontal">
-									<Label Content="Count"/>
-									<TextBox Text="{Binding Count, UpdateSourceTrigger=PropertyChanged}" Width="80"/>
-									<Label Content="Name "/>
-									<Label Content="{Binding ID, Converter={StaticResource ItemIDConverter}}"/>
-								</StackPanel>
-							</DataTemplate>
-						</ListBox.ItemTemplate>
-					</ListBox>
-				</DockPanel>
-			</TabItem>
-		</TabControl>
-	</DockPanel>
+        Title="STAR OCEAN THE SECOND STORY R Nintendo Switch - Save Editor" Height="596" Width="896">
+    <Window.DataContext>
+        <local:ViewModel/>
+    </Window.DataContext>
+    <DockPanel>
+        <Menu DockPanel.Dock="Top">
+            <MenuItem Header="File">
+                <MenuItem Header="Open" Command="{Binding OpenFileCommand}"/>
+                <MenuItem Header="Save" Command="{Binding SaveFileCommand}"/>
+            </MenuItem>
+        </Menu>
+        <TabControl SelectionChanged="TabControl_SelectionChanged">
+
+            <TabItem Header="Basic">
+                <Grid Margin="8">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="12"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+                    <Grid Grid.Row="0" Height="48" HorizontalAlignment="Left" VerticalAlignment="Top">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="522*"/>
+                            <ColumnDefinition Width="347*"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+                        <Label Content="Money" Margin="10,10,411,0" HorizontalContentAlignment="Center"/>
+                        <TextBox Text="{Binding Basic.Money, UpdateSourceTrigger=PropertyChanged}" VerticalAlignment="Center" Height="16" Margin="86,0,202,0"/>
+                    </Grid>
+                    <GroupBox Grid.Row="2" Header="Party" Padding="8" Margin="0,0,515,0">
+                        <ListBox ItemsSource="{Binding Party}" HorizontalAlignment="Center" VerticalAlignment="Top">
+                            <ListBox.ItemTemplate>
+                                <DataTemplate>
+                                    <ComboBox ItemsSource="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=local:MainWindow}, Path=DataContext.Info.Character}" SelectedIndex="{Binding Value}" DisplayMemberPath="Name" Width="200"/>
+                                </DataTemplate>
+                            </ListBox.ItemTemplate>
+                        </ListBox>
+                    </GroupBox>
+                </Grid>
+            </TabItem>
+
+            <TabItem Header="Characters">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="19*"/>
+                        <ColumnDefinition Width="270*"/>
+                        <ColumnDefinition Width="233*"/>
+                        <ColumnDefinition Width="347*"/>
+                    </Grid.ColumnDefinitions>
+                    <ListBox Name="ListBoxCharacters" ItemsSource="{Binding Characters}" DisplayMemberPath="Name" Grid.ColumnSpan="2" Margin="0,0,4,0"/>
+                    <Grid Grid.Column="2">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="98*"/>
+                            <ColumnDefinition Width="135*"/>
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition/>
+                            <RowDefinition/>
+                            <RowDefinition/>
+                            <RowDefinition/>
+                            <RowDefinition/>
+                            <RowDefinition/>
+                            <RowDefinition/>
+                            <RowDefinition/>
+                            <RowDefinition/>
+                            <RowDefinition/>
+                            <RowDefinition/>
+                            <RowDefinition/>
+                            <RowDefinition/>
+                            <RowDefinition/>
+                            <RowDefinition/>
+                            <RowDefinition/>
+                            <RowDefinition/>
+                        </Grid.RowDefinitions>
+                        <Label Content="Lv" Margin="0,0,0,30" Grid.RowSpan="2"/>
+                        <TextBox Grid.Column="1" Text="{Binding ElementName=ListBoxCharacters, Path=SelectedItem.Lv, UpdateSourceTrigger=PropertyChanged}" Margin="0,0,0,30" Grid.RowSpan="2"/>
+                        <Label Grid.Row="1" Content="Exp"/>
+                        <TextBox Grid.Row="1" Grid.Column="1" Text="{Binding ElementName=ListBoxCharacters, Path=SelectedItem.Exp, UpdateSourceTrigger=PropertyChanged}"/>
+                        <Label Grid.Row="1" Content="SP" Margin="0,30,0,0" Grid.RowSpan="2"/>
+                        <TextBox Grid.Row="1" Grid.Column="1" Text="{Binding ElementName=ListBoxCharacters, Path=SelectedItem.SP, UpdateSourceTrigger=PropertyChanged}" Margin="0,30,0,0" Grid.RowSpan="2"/>
+                        <Label Grid.Row="2" Content="BP" Margin="0,31,0,31" Grid.RowSpan="3"/>
+                        <TextBox Grid.Row="2" Grid.Column="1" Text="{Binding ElementName=ListBoxCharacters, Path=SelectedItem.BP, UpdateSourceTrigger=PropertyChanged}" Margin="0,31,0,31" Grid.RowSpan="3"/>
+                        <Label Grid.Row="4" Content="BaseHP" Margin="0,0,0,30" Grid.RowSpan="2"/>
+                        <TextBox Grid.Row="4" Grid.Column="1" Text="{Binding ElementName=ListBoxCharacters, Path=SelectedItem.BaseHP, UpdateSourceTrigger=PropertyChanged}" Margin="0,0,0,30" Grid.RowSpan="2"/>
+                        <Label Grid.Row="5" Content="HP"/>
+                        <TextBox Grid.Row="5" Grid.Column="1" Text="{Binding ElementName=ListBoxCharacters, Path=SelectedItem.HP, UpdateSourceTrigger=PropertyChanged}"/>
+                        <Label Grid.Row="5" Content="BaseMP" Margin="0,30,0,31" Grid.RowSpan="3"/>
+                        <TextBox Grid.Row="5" Grid.Column="1" Text="{Binding ElementName=ListBoxCharacters, Path=SelectedItem.BaseMP, UpdateSourceTrigger=PropertyChanged}" Margin="0,30,0,31" Grid.RowSpan="3"/>
+                        <Label Grid.Row="7" Content="MP" Margin="0,0,0,30" Grid.RowSpan="2"/>
+                        <TextBox Grid.Row="7" Grid.Column="1" Text="{Binding ElementName=ListBoxCharacters, Path=SelectedItem.MP, UpdateSourceTrigger=PropertyChanged}" Margin="0,0,0,30" Grid.RowSpan="2"/>
+                        <Label Grid.Row="8" Content="ATK"/>
+                        <TextBox Grid.Row="8" Grid.Column="1" Text="{Binding ElementName=ListBoxCharacters, Path=SelectedItem.ATK, UpdateSourceTrigger=PropertyChanged}"/>
+                        <Label Grid.Row="8" Content="DEF" Margin="0,30,0,0" Grid.RowSpan="2"/>
+                        <TextBox Grid.Row="8" Grid.Column="1" Text="{Binding ElementName=ListBoxCharacters, Path=SelectedItem.DEF, UpdateSourceTrigger=PropertyChanged}" Margin="0,30,0,0" Grid.RowSpan="2"/>
+                        <Label Grid.Row="9" Content="HIT" Margin="0,31,0,31" Grid.RowSpan="3"/>
+                        <TextBox Grid.Row="9" Grid.Column="1" Text="{Binding ElementName=ListBoxCharacters, Path=SelectedItem.HIT, UpdateSourceTrigger=PropertyChanged}" Margin="0,31,0,31" Grid.RowSpan="3"/>
+                        <Label Grid.Row="11" Content="AVD" Margin="0,0,0,30" Grid.RowSpan="2"/>
+                        <TextBox Grid.Row="11" Grid.Column="1" Text="{Binding ElementName=ListBoxCharacters, Path=SelectedItem.AVD, UpdateSourceTrigger=PropertyChanged}" Margin="0,0,0,30" Grid.RowSpan="2"/>
+                        <Label Grid.Row="12" Content="INT"/>
+                        <TextBox Grid.Row="12" Grid.Column="1" Text="{Binding ElementName=ListBoxCharacters, Path=SelectedItem.INT, UpdateSourceTrigger=PropertyChanged}"/>
+                        <Label Grid.Row="12" Content="LUC" Margin="0,30,0,31" Grid.RowSpan="3"/>
+                        <TextBox Grid.Row="12" Grid.Column="1" Text="{Binding ElementName=ListBoxCharacters, Path=SelectedItem.LUC, UpdateSourceTrigger=PropertyChanged}" Margin="0,30,0,31" Grid.RowSpan="3"/>
+                        <Label Grid.Row="14" Content="STM" Margin="0,0,0,30" Grid.RowSpan="2"/>
+                        <TextBox Grid.Row="14" Grid.Column="1" Text="{Binding ElementName=ListBoxCharacters, Path=SelectedItem.STM, UpdateSourceTrigger=PropertyChanged}" Margin="0,0,0,30" Grid.RowSpan="2"/>
+                        <Label Grid.Row="15" Content="CRT"/>
+                        <TextBox Grid.Row="15" Grid.Column="1" Text="{Binding ElementName=ListBoxCharacters, Path=SelectedItem.CRT, UpdateSourceTrigger=PropertyChanged}"/>
+                        <Label Grid.Row="15" Content="GUTS" Margin="0,30,0,0" Grid.RowSpan="2"/>
+                        <TextBox Grid.Row="15" Grid.Column="1" Text="{Binding ElementName=ListBoxCharacters, Path=SelectedItem.GUTS, UpdateSourceTrigger=PropertyChanged}" Margin="0,30,0,0" Grid.RowSpan="2"/>
+                    </Grid>
+                    <TabControl Grid.Column="3" Margin="4,0,0,0">
+                        <TabItem Header="Talents">
+                            <ListBox ItemsSource="{Binding ElementName=ListBoxCharacters, Path=SelectedItem.Talents}">
+                                <ListBox.ItemTemplate>
+                                    <DataTemplate>
+                                        <CheckBox Content="{Binding Name}" IsChecked="{Binding Value}"/>
+                                    </DataTemplate>
+                                </ListBox.ItemTemplate>
+                            </ListBox>
+                        </TabItem>
+                        <TabItem Header="Skills">
+                            <TabControl>
+                                <TabItem Header="Combat Skills">
+                                    <ListBox ItemsSource="{Binding ElementName=ListBoxCharacters, Path=SelectedItem.CombatSkills}">
+                                        <ListBox.ItemTemplate>
+                                            <DataTemplate>
+                                                <StackPanel Orientation="Horizontal">
+                                                    <Label Content="Lv"/>
+                                                    <TextBox Text="{Binding Value, UpdateSourceTrigger=PropertyChanged}" Width="80"/>
+                                                    <Label Content="{Binding Name}"/>
+                                                </StackPanel>
+                                            </DataTemplate>
+                                        </ListBox.ItemTemplate>
+                                    </ListBox>
+                                </TabItem>
+                                <TabItem Header="Specialty Skills">
+                                    <ListBox ItemsSource="{Binding ElementName=ListBoxCharacters, Path=SelectedItem.SpecialtySkills}">
+                                        <ListBox.ItemTemplate>
+                                            <DataTemplate>
+                                                <StackPanel Orientation="Horizontal">
+                                                    <Label Content="Lv"/>
+                                                    <TextBox Text="{Binding Value, UpdateSourceTrigger=PropertyChanged}" Width="80"/>
+                                                    <Label Content="{Binding Name}"/>
+                                                </StackPanel>
+                                            </DataTemplate>
+                                        </ListBox.ItemTemplate>
+                                    </ListBox>
+                                </TabItem>
+                            </TabControl>
+                        </TabItem>
+                    </TabControl>
+                </Grid>
+            </TabItem>
+
+            <TabItem Header="Inventory">
+                <DockPanel>
+                    <StackPanel DockPanel.Dock="Top" Orientation="Horizontal">
+                        <Label Content="Filter" VerticalAlignment="Center" Margin="0,0,8,0"/>
+                        <TextBox x:Name="InventoryFilterBox" TextChanged="InventoryFilterBox_TextChanged" TabIndex="0" Width="510" Margin="0,4,30,2"/>
+                        <TextBlock Text="Category:" VerticalAlignment="Center" Margin="0,0,8,0"/>
+                        <ComboBox x:Name="InventoryCategoryBox" Width="220" SelectionChanged="InventoryCategoryBox_SelectionChanged" Height="22"/>
+                    </StackPanel>
+                    <StackPanel DockPanel.Dock="Left" Orientation="Vertical" Margin="5,5,5,5">
+                        <Button DockPanel.Dock="Bottom" Content="All Clear" Click="AllClear_Click"/>
+                        <Label Content="All Item " Margin="0,10,0,0" BorderBrush="{DynamicResource {x:Static SystemColors.ActiveCaptionTextBrushKey}}" Background="#FFE6EBF9"/>
+                        <TextBox x:Name="AllItemBox" Width="80" Text="{Binding ItemCount, UpdateSourceTrigger=PropertyChanged}" PreviewTextInput="AllItemBox_PreviewTextInput" Background="#FFE6EBF9"/>
+                        <Button Content="Apply" Command="{Binding AllItemCountCommand}"/>
+                    </StackPanel>
+                    <ListBox x:Name="ListBoxInventory" ItemsSource="{Binding Items}" Margin="0,5,5,5">
+                        <ListBox.Resources>
+                            <local:ItemIDConverter x:Key="ItemIDConverter"/>
+                        </ListBox.Resources>
+                        <ListBox.ItemTemplate>
+                            <DataTemplate>
+                                <StackPanel Orientation="Horizontal">
+                                    <Label Content="Count"/>
+                                    <TextBox Text="{Binding Count, UpdateSourceTrigger=PropertyChanged}" Width="80"/>
+                                    <Label Content="Name "/>
+                                    <Label Content="{Binding ID, Converter={StaticResource ItemIDConverter}}"/>
+                                </StackPanel>
+                            </DataTemplate>
+                        </ListBox.ItemTemplate>
+                    </ListBox>
+                </DockPanel>
+            </TabItem>
+
+            <TabItem Header="Item Finder">
+                <DockPanel>
+                    <DockPanel DockPanel.Dock="Top">
+                        <Label Content="Filter"/>
+                        <TextBox x:Name="TextBoxFilter" TextChanged="TextBoxFilter_TextChanged" TabIndex="0" Margin="0,2,30,2" Width="505"/>
+                        <TextBlock Text="Category:" VerticalAlignment="Center" Margin="10,0,0,0"/>
+                        <ComboBox x:Name="FinderCategoryBox" Width="220" SelectionChanged="FinderCategoryBox_SelectionChanged" Margin="0,2,0,2"/>
+                    </DockPanel>
+                    <Grid DockPanel.Dock="Top">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition/>
+                            <ColumnDefinition/>
+                        </Grid.ColumnDefinitions>
+                        <Button x:Name="ButtonDecision" IsEnabled="False" Click="ButtonDecision_Click" Grid.ColumnSpan="2" Margin="217,4,217,4">
+                            <StackPanel Orientation="Horizontal">
+                                <TextBlock Text="Add Item"/>
+                                <TextBlock x:Name="AddOkTick" Text="✔" Foreground="LimeGreen" Margin="8,0,0,0" Visibility="Collapsed"/>
+                            </StackPanel>
+                        </Button>
+                    </Grid>
+                    <ListBox x:Name="ListBoxItem" SelectionChanged="ListBoxItem_SelectionChanged" DisplayMemberPath="Name" ItemsSource="{Binding RelativeSource={RelativeSource AncestorType=local:MainWindow}, Path=DataContext.Info.Item}"/>
+                </DockPanel>
+            </TabItem>
+
+        </TabControl>
+    </DockPanel>
 </Window>
