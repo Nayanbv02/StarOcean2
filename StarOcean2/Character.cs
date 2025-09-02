@@ -7,28 +7,39 @@ namespace StarOcean2
 	{
 		public ObservableCollection<BIT> Talents { get; private set; } = new ObservableCollection<BIT>();
 		public ObservableCollection<Number> Skills { get; private set; } = new ObservableCollection<Number>();
+        public ObservableCollection<Number> CombatSkills { get; } = new ObservableCollection<Number>();
+        public ObservableCollection<Number> SpecialtySkills { get; } = new ObservableCollection<Number>();
 
-		private readonly uint mAddress;
+        private readonly uint mAddress;
 
 		public Character(uint address, String name)
 		{
 			mAddress = address;
 			Name = name;
-
+			 
 			foreach (var talent in Info.Instance().Talent)
 			{
 				Talents.Add(new BIT(mAddress + 676 + talent.Value / 8, talent.Value % 8, talent.Name));
 			}
 
-			foreach (var skill in Info.Instance().Skill)
-			{
-				var value = new Number(mAddress + 420 + skill.Value * 4, 4, 0, 10);
-				value.Name = skill.Name;
-				Skills.Add(value);
-			}
-		}
+            foreach (var (nameC, id) in Info.Instance().GetCombatSkillsOrdered())
+            {
+                uint off = mAddress + 420u + (uint)id * 4u;
+                uint value = SaveData.Instance().ReadNumber(off, 4);
+                CombatSkills.Add(new Number(off, 4, 0, 10) { Name = nameC, Value = value });
+            }
 
-		public String Name { get; private set; }
+            foreach (var (nameS, id) in Info.Instance().GetSpecialtySkillsOrdered())
+            {
+                uint off = mAddress + 160u + (uint)id * 4u;
+                uint value = SaveData.Instance().ReadNumber(off, 4);
+                SpecialtySkills.Add(new Number(off, 4, 0, 10) { Name = nameS, Value = value });
+            }
+
+
+        }
+
+        public String Name { get; private set; }
 
 		public uint Lv
 		{
@@ -42,7 +53,19 @@ namespace StarOcean2
 			set => Util.WriteNumber(mAddress + 4, 4, value, 0, 99999999);
 		}
 
-		public uint BaseHP
+        public uint SP
+        {
+            get => SaveData.Instance().ReadNumber(mAddress + 412, 4);
+            set => Util.WriteNumber(mAddress + 412, 4, value, 0, 9999);
+        }
+
+        public uint BP
+        {
+            get => SaveData.Instance().ReadNumber(mAddress + 544, 4);
+            set => Util.WriteNumber(mAddress + 544, 4, value, 0, 9999);
+        }
+
+        public uint BaseHP
 		{
 			get => SaveData.Instance().ReadNumber(mAddress + 16, 4);
 			set => Util.WriteNumber(mAddress + 16, 4, value, 0, 9999);
@@ -78,25 +101,26 @@ namespace StarOcean2
 			set => Util.WriteNumber(mAddress + 36, 4, value, 1, 9999);
 		}
 
-		public uint HIT
-		{
-			get => SaveData.Instance().ReadNumber(mAddress + 40, 4);
-			set => Util.WriteNumber(mAddress + 40, 4, value, 1, 9999);
-		}
+        public uint INT
+        {
+            get => SaveData.Instance().ReadNumber(mAddress + 40, 4);
+            set => Util.WriteNumber(mAddress + 40, 4, value, 1, 9999);
+        }
 
-		public uint AVD
-		{
-			get => SaveData.Instance().ReadNumber(mAddress + 44, 4);
-			set => Util.WriteNumber(mAddress + 44, 4, value, 1, 9999);
-		}
+        public uint HIT
+        {
+            get => SaveData.Instance().ReadNumber(mAddress + 44, 4);
+            set => Util.WriteNumber(mAddress + 44, 4, value, 1, 9999);
+        }
 
-		public uint INT
-		{
-			get => SaveData.Instance().ReadNumber(mAddress + 48, 4);
-			set => Util.WriteNumber(mAddress + 48, 4, value, 1, 9999);
-		}
+        public uint AVD
+        {
+            get => SaveData.Instance().ReadNumber(mAddress + 48, 4);
+            set => Util.WriteNumber(mAddress + 48, 4, value, 1, 9999);
+        }
 
-		public uint GUTS
+
+        public uint GUTS
 		{
 			get => SaveData.Instance().ReadNumber(mAddress + 52, 4);
 			set => Util.WriteNumber(mAddress + 52, 4, value, 1, 9999);
@@ -120,10 +144,5 @@ namespace StarOcean2
 			set => Util.WriteNumber(mAddress + 72, 4, value, 1, 9999);
 		}
 
-		public uint BP
-		{
-			get => SaveData.Instance().ReadNumber(mAddress + 544, 4);
-			set => Util.WriteNumber(mAddress + 544, 4, value, 0, 9999);
-		}
 	}
 }

@@ -24,7 +24,7 @@
 		public uint Count
 		{
 			get => SaveData.Instance().ReadNumber(mAddress + 4, 1);
-			set => Util.WriteNumber(mAddress + 4, 1, value, 0, 99);
+			set => Util.WriteNumber(mAddress + 4, 1, value, 0, 20);
 		}
 	}
 }

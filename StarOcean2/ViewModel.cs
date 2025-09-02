@@ -19,7 +19,6 @@ namespace StarOcean2
 		public CommandAction SaveFileCommand { get; private set; }
 		public CommandAction AllItemCountCommand { get; private set; }
 		public CommandAction AllItemClearCommand { get; private set; }
-		public CommandAction ItemChoiceCommand { get; private set; }
 
 		public uint ItemCount { get; set; } = 10;
 
@@ -29,7 +28,6 @@ namespace StarOcean2
 			SaveFileCommand = new CommandAction(SaveFile);
 			AllItemCountCommand = new CommandAction(AllItemCount);
 			AllItemClearCommand = new CommandAction(AllItemClear);
-			ItemChoiceCommand = new CommandAction(ItemChoice);
 		}
 
 		private void Load()
@@ -74,20 +72,28 @@ namespace StarOcean2
 			SaveData.Instance().Save();
 		}
 
-		private void AllItemCount(Object? obj)
-		{
-			for (uint i = 0; i < 0x37E0; i++)
-			{
-				uint address = 0x3FD4 + i * 24;
-				SaveData.Instance().WriteNumber(address + 2, 2, i);
-				SaveData.Instance().WriteNumber(address + 4, 1, ItemCount);
-				SaveData.Instance().WriteNumber(address + 16, 1, 1);
-				SaveData.Instance().WriteNumber(address + 17, 1, 1);
-			}
-			Load();
-		}
+        private void AllItemCount(Object? obj)
+        {
+            uint slot = 0;
+            foreach (var item in Info.Item)
+            {
+                if (item.Name.Contains("???"))
+                    continue;
 
-		private void AllItemClear(Object? obj)
+                uint id = item.Value;
+                uint address = 0x3FD4 + slot * 24;
+
+                SaveData.Instance().WriteNumber(address + 2, 2, id);
+                SaveData.Instance().WriteNumber(address + 4, 1, ItemCount);
+                SaveData.Instance().WriteNumber(address + 16, 1, 1);
+                SaveData.Instance().WriteNumber(address + 17, 1, 1);
+
+                slot++;
+            }
+            Load();
+        }
+
+        private void AllItemClear(Object? obj)
 		{
 			for (uint i = 0; i < 0x37E0; i++)
 			{
@@ -100,20 +106,18 @@ namespace StarOcean2
 			Load();
 		}
 
-		private void ItemChoice(Object? obj)
-		{
-			var dlg = new ItemChoiceWindow();
-			dlg.ID = 0;
-			dlg.ShowDialog();
+        public void ApplyItemChoice(uint id)
+        {
+            if (id == 0) return;
 
-			if (dlg.ID == 0) return;
+            uint address = 0x3FD4 + id * 24;
+            SaveData.Instance().WriteNumber(address + 2, 2, id);
+            SaveData.Instance().WriteNumber(address + 4, 1, 1);
+            SaveData.Instance().WriteNumber(address + 16, 1, 1);
+            SaveData.Instance().WriteNumber(address + 17, 1, 1);
 
-			uint address = 0x3FD4 + dlg.ID * 24;
-			SaveData.Instance().WriteNumber(address + 2, 2, dlg.ID);
-			SaveData.Instance().WriteNumber(address + 4, 1, 1);
-			SaveData.Instance().WriteNumber(address + 16, 1, 1);
-			SaveData.Instance().WriteNumber(address + 17, 1, 1);
-			Load();
-		}
-	}
+            Load();
+        }
+
+    }
 }
